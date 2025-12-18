@@ -20,13 +20,6 @@ body {
   background-position: 0 0, 80px 80px;
 }
 
-/* 放大主体部分（标题、图标、摄像头、结果） */
-#main-container {
-  transform: scale(2);
-  transform-origin: top center;
-  margin-top: 20px;
-}
-
 h1 { font-size: 30px; color: #d9568f; margin: 16px 0 8px; }
 p { font-size: 14px; color: #d2496b; margin: 0 0 12px; }
 
@@ -80,7 +73,6 @@ p { font-size: 14px; color: #d2496b; margin: 0 0 12px; }
   100% { transform: rotate(-6deg); }
 }
 
-/* 按钮放大后文字清晰 */
 #analyzeBtn {
   margin-top: 12px;
   padding: 10px 18px;
@@ -93,7 +85,6 @@ p { font-size: 14px; color: #d2496b; margin: 0 0 12px; }
   z-index: 2;
 }
 
-/* 分析结果 */
 #result {
   margin-top: 12px;
   width: 320px;
@@ -110,7 +101,6 @@ p { font-size: 14px; color: #d2496b; margin: 0 0 12px; }
 </head>
 
 <body>
-<div id="main-container">
 
 <h1>你拥有了一块野餐地毯</h1>
 <p>按照我们为你定制的食谱开始享用吧</p>
@@ -141,8 +131,6 @@ p { font-size: 14px; color: #d2496b; margin: 0 0 12px; }
 <button id="analyzeBtn">开始分析</button>
 <div id="result">等待模型加载...</div>
 
-</div>
-
 <script src="./face-api.min.js"></script>
 <script>
 const video = document.getElementById("video");
@@ -160,14 +148,12 @@ async function loadModels() {
 }
 loadModels();
 
-// 点击按钮启动摄像头并分析
 analyzeBtn.onclick = async () => {
   if (!modelsLoaded) {
     alert("模型还没加载完成，请稍等");
     return;
   }
 
-  // 打开摄像头
   if (!video.srcObject) {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
@@ -178,7 +164,6 @@ analyzeBtn.onclick = async () => {
     }
   }
 
-  // 分析情绪
   const detection = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions()).withFaceExpressions();
   if (!detection) {
     result.innerText = "未检测到人脸，请正对摄像头";
