@@ -99,7 +99,8 @@
       animation: swing 3s ease-in-out infinite;
       transition: transform 0.3s ease;
     }
-/* 摇摆动画 */
+
+    /* 摇摆动画 */
     @keyframes swing {
       0% { transform: translateX(0); }
       25% { transform: translateX(8px); }
@@ -107,18 +108,20 @@
       75% { transform: translateX(-8px); }
       100% { transform: translateX(0); }
     }
-   /* 每个图标增加延迟，让动作错开 */
-#decor-top .decor:nth-child(1) { animation-delay: 0s; }
-#decor-top .decor:nth-child(2) { animation-delay: 0.2s; }
-#decor-top .decor:nth-child(3) { animation-delay: 0.4s; }
-#decor-top .decor:nth-child(4) { animation-delay: 0.6s; }
-#decor-top .decor:nth-child(5) { animation-delay: 0.8s; }
 
-#decor-bottom .decor:nth-child(1) { animation-delay: 1s; }
-#decor-bottom .decor:nth-child(2) { animation-delay: 1.2s; }
-#decor-bottom .decor:nth-child(3) { animation-delay: 1.4s; }
-#decor-bottom .decor:nth-child(4) { animation-delay: 1.6s; }
-#decor-bottom .decor:nth-child(5) { animation-delay: 1.8s; }
+    /* 上排图标动画延迟 */
+    #decor-top .decor:nth-child(1) { animation-delay: 0s; }
+    #decor-top .decor:nth-child(2) { animation-delay: 0.2s; }
+    #decor-top .decor:nth-child(3) { animation-delay: 0.4s; }
+    #decor-top .decor:nth-child(4) { animation-delay: 0.6s; }
+    #decor-top .decor:nth-child(5) { animation-delay: 0.8s; }
+
+    /* 下排图标动画延迟 */
+    #decor-bottom .decor:nth-child(1) { animation-delay: 1s; }
+    #decor-bottom .decor:nth-child(2) { animation-delay: 1.2s; }
+    #decor-bottom .decor:nth-child(3) { animation-delay: 1.4s; }
+    #decor-bottom .decor:nth-child(4) { animation-delay: 1.6s; }
+    #decor-bottom .decor:nth-child(5) { animation-delay: 1.8s; }
   </style>
 </head>
 
@@ -159,12 +162,8 @@
 
     // 打开摄像头
     navigator.mediaDevices.getUserMedia({ video: true })
-      .then(stream => {
-        video.srcObject = stream;
-      })
-      .catch(() => {
-        alert("无法访问摄像头，请检查权限");
-      });
+      .then(stream => { video.srcObject = stream; })
+      .catch(() => { alert("无法访问摄像头，请检查权限"); });
 
     // 加载模型
     async function loadModels() {
@@ -226,5 +225,3 @@
   </script>
 </body>
 </html>
-
-
