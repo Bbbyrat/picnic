@@ -8,53 +8,52 @@
   <script src="face-api.min.js"></script>
 
   <style>
-   body {
-  font-family: sans-serif;
-  text-align: center;
-  margin: 40px 0 0 0;
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      margin: 40px 0 0 0;
+      background-color: #ffffff;
+      background-image:
+        linear-gradient(45deg, #fff2bd 25%, transparent 25%, transparent 75%, #fff0b4 75%, #fff1bb),
+        linear-gradient(45deg, #fff1b8 25%, transparent 25%, transparent 75%, #ffefad 75%, #ffec9f);
+      background-size: 160px 160px;
+      background-position: 0 0, 80px 80px;
+    }
 
-  /* 黄白棋盘格背景 */
-  background-color: #ffffff;
-  background-image:
-    linear-gradient(45deg,
-      #fff2bd 25%,
-      transparent 25%,
-      transparent 75%,
-      #fff0b4 75%,
-      #fff1bb
-    ),
-    linear-gradient(45deg,
-      #fff1b8 25%,
-      transparent 25%,
-      transparent 75%,
-      #ffefad 75%,
-      #ffec9f
-    );
-  background-size: 160px 160px;
-  background-position: 0 0, 80px 80px;
-}
-<!-- trigger github pages -->
+    h1 {
+      font-size: 30px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+      font-family: "ZCOOL KuaiLe", cursive;
+      color: #d9568f;
+    }
 
+    p {
+      font-size: 14px;
+      color: #d2496b;
+      letter-spacing: 0.05em;
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-family: "ZCOOL KuaiLe", cursive;
+    }
 
-
-    /* 摄像头整体容器 */
     #camera-container {
       position: relative;
       width: 320px;
       height: 240px;
-      margin:  80px auto 20px auto;
+      margin: 20px auto 20px auto;
     }
 
     #video {
       width: 320px;
       height: 240px;
-      border-radius: 12px;       /* 圆角 */
-      border: 4px solid #ff8aaf; /* 柔和的黄橙色边框，呼应棋盘格 */
-      box-shadow: 0 10px 20px rgba(255, 195, 29, 0.2); /* 轻微阴影，让它悬浮感 */
+      border-radius: 12px;
+      border: 4px solid #ff8aaf;
+      box-shadow: 0 10px 20px rgba(255, 195, 29, 0.2);
       transform: scaleX(-1);
     }
 
-    /* 画框用的画布，盖在 video 上 */
     #overlay {
       position: absolute;
       top: 0;
@@ -62,11 +61,13 @@
     }
 
     button {
-      margin-top: 60px;
+      margin-top: 20px;
       padding: 10px 133px;
       font-size: 20px;
       background: #ffc9d4;
-      border: none; 
+      border: none;
+      font-family: "ZCOOL KuaiLe", cursive;
+      color: #d2496b;
     }
 
     #result {
@@ -78,83 +79,28 @@
       margin-right: auto;
       background: #ffc9d4;
       padding: 10px;
+      font-family: "ZCOOL KuaiLe", cursive;
+      color: #d9568f;
     }
-    h1 {
-     font-size: 30px;
-     font-weight: 500;
-     letter-spacing: 0.08em;
-     margin-bottom: 10px;
+
+    /* 装饰行容器 */
+    .decor-row {
+      display: flex;
+      justify-content: center;
+      gap: 25px; /* 图标间距 */
+      margin: 10px 0; /* 上下间距 */
+      pointer-events: none; /* 不挡点击 */
     }
-    p {
-     font-size: 14px;
-     color: #d85990;
-     letter-spacing: 0.05em;
-     margin-top: 0;
-     margin-bottom: 20px;
+
+    /* 单个图标 */
+    .decor {
+      font-size: 50px;
+      opacity: 0.85;
+      animation: swing 3s ease-in-out infinite;
+      transition: transform 0.3s ease;
     }
-    /* 可爱字体：用于标题和结果 */
-h1,
-#result {
-  font-family: "ZCOOL KuaiLe", cursive;
-  color: #d9568f; 
-}
 
-
-p,
-button {
-  font-family: "ZCOOL KuaiLe", cursive;
-color: #d2496b; 
-}
-
-/* 小装饰容器：全屏固定 */
-#decorations {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none; /* 不挡点击 */
-  z-index: 0;
-}
-
-/* 单个小物件 */
-.decor {
-  position: absolute;
-  font-size: 50px;   /* 你喜欢的大小 */
-  opacity: 0.85;
-  transition: transform 0.3s ease;
-  animation: swing 3s ease-in-out infinite;
-  transform: translate(-50%, -50%); /* 基于中心定位 */
-}
-
-/* 上排图标位置 */
-.decor:nth-child(1) { top: 12%; left: 20%; }
-.decor:nth-child(2) { top: 12%; left: 35%; }
-.decor:nth-child(3) { top: 12%; left: 50%; }
-.decor:nth-child(4) { top: 12%; left: 65%; }
-.decor:nth-child(5) { top: 12%; left: 80%; }
-
-/* 下排图标位置 */
-.decor:nth-child(6) { top: 88%; left: 20%; }
-.decor:nth-child(7) { top: 88%; left: 35%; }
-.decor:nth-child(8) { top: 88%; left: 50%; }
-.decor:nth-child(9) { top: 88%; left: 65%; }
-.decor:nth-child(10){ top: 88%; left: 80%; }
-
-
-
-
-
-
-#camera-container,
-button,
-#result,
-h1,
-p {
-  position: relative;
-  z-index: 2;
-}
- /* 摇摆动画 */
+    /* 摇摆动画 */
     @keyframes swing {
       0% { transform: translateX(0); }
       25% { transform: translateX(8px); }
@@ -162,57 +108,38 @@ p {
       75% { transform: translateX(-8px); }
       100% { transform: translateX(0); }
     }
-
-    
-
-    /* 延迟让每个小物件错开 */
-    .decor:nth-child(1) { animation-delay: 0s; }
-    .decor:nth-child(2) { animation-delay: 0.2s; }
-    .decor:nth-child(3) { animation-delay: 0.4s; }
-    .decor:nth-child(4) { animation-delay: 0.6s; }
-    .decor:nth-child(5) { animation-delay: 0.8s; }
-    .decor:nth-child(6) { animation-delay: 1.0s; }
-    .decor:nth-child(7) { animation-delay: 1.2s; }
-    .decor:nth-child(8) { animation-delay: 1.4s; }
-    .decor:nth-child(9) { animation-delay: 1.6s; }
-    .decor:nth-child(10) { animation-delay: 1.8s; }
-    
-    
-
-
   </style>
 </head>
 
 <body>
   <h1>你拥有了一块野餐地毯</h1>
   <p>按照我们为你定制的食谱开始享用吧</p>
-  <!-- 野餐小装饰 -->
-<div id="camera-container">
-  <video id="video" autoplay muted></video>
-  <canvas id="overlay" width="320" height="240"></canvas>
 
-  <!-- 👇 小装饰现在属于摄像头 -->
-  <div id="decorations">
+  <!-- 上排图标 -->
+  <div class="decor-row" id="decor-top">
     <span class="decor">🍪</span>
     <span class="decor">🍞</span>
     <span class="decor">🥛</span>
     <span class="decor">🍮</span>
     <span class="decor">🍫</span>
+  </div>
+
+  <!-- 摄像头区域 -->
+  <div id="camera-container">
+    <video id="video" autoplay muted></video>
+    <canvas id="overlay" width="320" height="240"></canvas>
+  </div>
+
+  <!-- 下排图标 -->
+  <div class="decor-row" id="decor-bottom">
     <span class="decor">🧸</span>
     <span class="decor">🎉</span>
     <span class="decor">🍎</span>
     <span class="decor">☕</span>
     <span class="decor">🌸</span>
   </div>
-</div>
-
-
-
-
- 
 
   <button onclick="analyze()">开始分析</button>
-
   <pre id="result">等待分析...</pre>
 
   <script>
@@ -241,7 +168,6 @@ p {
     // 分析情绪
     async function analyze() {
       result.innerText = "正在分析情绪参数...";
-
       const detection = await faceapi
         .detectSingleFace(video, new faceapi.TinyFaceDetectorOptions())
         .withFaceExpressions();
@@ -256,32 +182,32 @@ p {
     }
 
     function mapExpressionsToTenLevels(expr) {
-  const score = expr.happy - expr.sad; // 综合评分，范围大约 -1 到 +1
-  if (score <= -0.8) return "极度低落";
-  if (score <= -0.6) return "很低落";
-  if (score <= -0.4) return "低落";
-  if (score <= -0.2) return "略低落";
-  if (score <= 0) return "中性偏低";
-  if (score <= 0.2) return "中性偏高";
-  if (score <= 0.4) return "略开心";
-  if (score <= 0.6) return "开心";
-  if (score <= 0.8) return "很开心";
-  return "非常开心";
-}
+      const score = expr.happy - expr.sad;
+      if (score <= -0.8) return "极度低落";
+      if (score <= -0.6) return "很低落";
+      if (score <= -0.4) return "低落";
+      if (score <= -0.2) return "略低落";
+      if (score <= 0) return "中性偏低";
+      if (score <= 0.2) return "中性偏高";
+      if (score <= 0.4) return "略开心";
+      if (score <= 0.6) return "开心";
+      if (score <= 0.8) return "很开心";
+      return "非常开心";
+    }
 
-   function showRecipe(mood) {
-  const recipes = {
-    "极度低落": "白吐司 + 曲奇 + 少量炼乳 + 果冻 + 生日帽 + 小熊",
-    "很低落": "白吐司 + 炼乳 + 果冻 + 小熊 + 巧克力",
-    "低落": "白吐司 + 苏打饼干 + 果冻 + 小熊",
-    "略低落": "白吐司 + 沙拉酱 + 果冻 + 少量巧克力",
-    "中性偏低": "白吐司 + 果冻 + 少量炼乳 + 小熊",
-    "中性偏高": "白吐司 + 曲奇 + 炼乳 + 小熊",
-    "略开心": "曲奇 + 白吐司 + 炼乳 + 软糖",
-    "开心": "曲奇 + 白吐司 + 炼乳 + 软糖 + 小熊",
-    "很开心": "曲奇 + 巧克力 + 炼乳 + 软糖 + 小熊",
-    "非常开心": "曲奇 + 巧克力 + 炼乳 + 软糖 + 小熊 + 生日帽"
-  };
+    function showRecipe(mood) {
+      const recipes = {
+        "极度低落": "白吐司 + 曲奇 + 少量炼乳 + 果冻 + 生日帽 + 小熊",
+        "很低落": "白吐司 + 炼乳 + 果冻 + 小熊 + 巧克力",
+        "低落": "白吐司 + 苏打饼干 + 果冻 + 小熊",
+        "略低落": "白吐司 + 沙拉酱 + 果冻 + 少量巧克力",
+        "中性偏低": "白吐司 + 果冻 + 少量炼乳 + 小熊",
+        "中性偏高": "白吐司 + 曲奇 + 炼乳 + 小熊",
+        "略开心": "曲奇 + 白吐司 + 炼乳 + 软糖",
+        "开心": "曲奇 + 白吐司 + 炼乳 + 软糖 + 小熊",
+        "很开心": "曲奇 + 巧克力 + 炼乳 + 软糖 + 小熊",
+        "非常开心": "曲奇 + 巧克力 + 炼乳 + 软糖 + 小熊 + 生日帽"
+      };
 
       result.innerText =
         `检测到情绪状态：${mood}\n\n推荐进食方案：\n${recipes[mood]}`;
@@ -289,5 +215,3 @@ p {
   </script>
 </body>
 </html>
-
-
